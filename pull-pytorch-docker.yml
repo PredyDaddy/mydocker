@@ -1,0 +1,20 @@
+name: Pull and Run PyTorch Docker Image
+
+on: [push]
+
+jobs:
+  pull-and-run-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Pull PyTorch Docker Image
+      run: docker pull pytorch/pytorch:2.0.1-cuda11.7-cudnn8-runtime
+
+    - name: Run PyTorch Docker Container
+      run: docker run --rm -d --gpus all pytorch/pytorch:2.0.1-cuda11.7-cudnn8-runtime
